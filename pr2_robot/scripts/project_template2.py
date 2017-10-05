@@ -161,6 +161,7 @@ def pr2_mover(object_list):
         # TODO: Get the PointCloud for a given object and obtain it's centroid
         foundIdx = labels.index(object['name'])
         centroid = centroids[foundIdx]
+        print('sup there')
         print(object['name'], centroid)
         
 
@@ -172,8 +173,9 @@ def pr2_mover(object_list):
         # TODO: Create a list of dictionaries (made with make_yaml_dict()) for later output to yaml format
 
         # Wait for 'pick_place_routine' service to come up
+        print('hi')
         rospy.wait_for_service('pick_place_routine')
-
+        print('end')
         try:
             pick_place_routine = rospy.ServiceProxy('pick_place_routine', PickPlace)
 
@@ -192,32 +194,27 @@ def pr2_mover(object_list):
                 which_arm.data = 'right'
             pick_pose = Pose()
     
-            pick_pose.position.x = float(centroid[0])
-            pick_pose.position.y = float(centroid[1])
-            pick_pose.position.z = float(centroid[2])
+            pick_pose.position.x = centroid[0]
+            pick_pose.position.y = centroid[1]
+            pick_pose.position.z = centroid[2]
 
-            pick_pose.orientation.x = 0
-            pick_pose.orientation.y = 0
-            pick_pose.orientation.z = 0
-            pick_pose.orientation.w = 0
+            pick_pose.orientation.x = 0.0
+            pick_pose.orientation.y = 0.0
+            pick_pose.orientation.z = 0.0
+            pick_pose.orientation.w = 0.0
             place_pose = Pose()
-            if object['group'] == 'green':                                                    
-                place_pose.position.x = float(dropbox[0]['position'][0])
-                place_pose.position.y = float(dropbox[0]['position'][1])
-                place_pose.position.z = float(dropbox[0]['position'][2])
-            else:
-                place_pose.position.x = float(dropbox[1]['position'][0])
-                place_pose.position.y = float(dropbox[1]['position'][1])
-                place_pose.position.z = float(dropbox[1]['position'][2])
-            place_pose.orientation.x = 0
-            place_pose.orientation.y = 0
-            place_pose.orientation.z = 0
-            place_pose.orientation.w = 0
-
+            place_pose.position.x = dropbox[0]['position'][0]
+            place_pose.position.y = dropbox[0]['position'][1]
+            place_pose.position.z = dropbox[0]['position'][2]
+            place_pose.orientation.x = 0.0
+            place_pose.orientation.y = 0.0
+            place_pose.orientation.z = 0.0
+            place_pose.orientation.w = 0.0
+            print("making dict")
             yaml_dict = make_yaml_dict(test_scene_number, object_name, which_arm, pick_pose, place_pose)
             dict_list.append(yaml_dict)
-
-            resp = pick_place_routine(test_scene_number, object_name, which_arm, pick_pose, place_pose)
+            print("made dict")
+            #resp = pick_place_routine(test_scene_number, object_name, which_arm, pick_pose, place_pose)
 
             print ("Response: ",resp.success)
 
@@ -227,6 +224,7 @@ def pr2_mover(object_list):
     # TODO: Output your request parameters into output yaml file
     print('sending')
     send_to_yaml('yaml_out', dict_list)
+    print(dict_list)
 
 
 if __name__ == '__main__':
