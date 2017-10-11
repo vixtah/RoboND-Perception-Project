@@ -61,6 +61,9 @@ I used the sensor stick to generate training data for each of the objects in eac
 [image2]: ./screenshots/accuracy3.PNG
 [image3]: ./screenshots/accuracy3.PNG
 
+![alt text][image1]
+![alt text][image2]
+![alt text][image3]
 
 I then looped over each cluster and obtained both the normal and color histograms to create my feature vector. I can then input this feature vector into my trained classifier to get a label for each cluster.
 
@@ -73,9 +76,14 @@ I obtained the centroid for each point cloud by taking the average of all the co
 
 
 //add 3 images here
-[image1]: ./screenshots/labels1.PNG
-[image2]: ./screenshots/labels2.PNG
-[image3]: ./screenshots/labels3.PNG
+
+[image4]: ./screenshots/labels1.PNG
+[image5]: ./screenshots/labels2.PNG
+[image6]: ./screenshots/labels3.PNG
+
+![alt text][image4]
+![alt text][image5]
+![alt text][image6]
 
 
 
