@@ -37,21 +37,45 @@ You're reading it!
 ### Exercise 1, 2 and 3 pipeline implemented
 #### 1. Complete Exercise 1 steps. Pipeline for filtering and RANSAC plane fitting implemented.
 
+The first step in the pipeline is downsampling. It makes the most sense to do this first because it makes the reduces the load of the computations for the other algorithms. I found that a good leaf size that still preserved all the useful information was .01.
+
+The second step was a passthrough filter to focus in on the interesting section of the image. I implemented a passthrough on 2 axes: y and z. The filter on z was to get rid of the table and the filter on y was to get rid of the edges of the table.
+
+Lastly I used plane segmentation to get rid of the surface of the table. I found that setting the distance threshold to .01 did a reasonable job of filtering the table while preserving the integrity of the objects on top.
+
+
 #### 2. Complete Exercise 2 steps: Pipeline including clustering for segmentation implemented.  
 
-#### 2. Complete Exercise 3 Steps.  Features extracted and SVM trained.  Object recognition implemented.
-Here is an example of how to include an image in your writeup.
+After separating out the objects in the image, I applied a statistical outlier filter to get rid of the noise in the image. I was able to set the cluster tolerance pretty low which got rid of a lot of the noise between objects. 
 
-![demo-1](https://user-images.githubusercontent.com/20687560/28748231-46b5b912-7467-11e7-8778-3095172b7b19.png)
+Applying the outlier filter made it a lot easier to cluster the pixels for each object.
+
+
+#### 2. Complete Exercise 3 Steps.  Features extracted and SVM trained.  Object recognition implemented.
+
+I used the sensor stick to generate training data for each of the objects in each world. I experimented with the number of training images until I ended up with an acceptable accuracy range for each object. I decided on a training set of 150 images which gave over 90% accuracy for each object:
+
+//insert pic here of 3 accuracies
+
+[image1]: ./screenshots/accuracy2.PNG
+[image2]: ./screenshots/accuracy3.PNG
+[image3]: ./screenshots/accuracy3.PNG
+
+
+I then looped over each cluster and obtained both the normal and color histograms to create my feature vector. I can then input this feature vector into my trained classifier to get a label for each cluster.
+
 
 ### Pick and Place Setup
 
 #### 1. For all three tabletop setups (`test*.world`), perform object recognition, then read in respective pick list (`pick_list_*.yaml`). Next construct the messages that would comprise a valid `PickPlace` request output them to `.yaml` format.
 
-And here's another image! 
-![demo-2](https://user-images.githubusercontent.com/20687560/28748286-9f65680e-7468-11e7-83dc-f1a32380b89c.png)
+I obtained the centroid for each point cloud by taking the average of all the coordinates. I then compared the labels from the list of expected objects to the ones detected by the machine learning. Finally I used that information to construct the appropriate request format and send it to the pick_place_routine.
 
-Spend some time at the end to discuss your code, what techniques you used, what worked and why, where the implementation might fail and how you might improve it if you were going to pursue this project further.  
+
+//add 3 images here
+[image1]: ./screenshots/labels1.PNG
+[image2]: ./screenshots/labels2.PNG
+[image3]: ./screenshots/labels3.PNG
 
 
 
