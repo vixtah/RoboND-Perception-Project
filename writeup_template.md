@@ -30,10 +30,6 @@
 ---
 ### Writeup / README
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  
-
-You're reading it!
-
 ### Exercise 1, 2 and 3 pipeline implemented
 #### 1. Complete Exercise 1 steps. Pipeline for filtering and RANSAC plane fitting implemented.
 
@@ -55,10 +51,8 @@ Applying the outlier filter made it a lot easier to cluster the pixels for each 
 
 I used the sensor stick to generate training data for each of the objects in each world. I experimented with the number of training images until I ended up with an acceptable accuracy range for each object. I decided on a training set of 150 images which gave over 90% accuracy for each object:
 
-//insert pic here of 3 accuracies
-
-[image1]: ./screenshots/accuracy2.PNG
-[image2]: ./screenshots/accuracy3.PNG
+[image1]: ./screenshots/accuracy1.PNG
+[image2]: ./screenshots/accuracy2.PNG
 [image3]: ./screenshots/accuracy3.PNG
 
 ![alt text][image1]
@@ -74,8 +68,6 @@ I then looped over each cluster and obtained both the normal and color histogram
 
 I obtained the centroid for each point cloud by taking the average of all the coordinates. I then compared the labels from the list of expected objects to the ones detected by the machine learning. Finally I used that information to construct the appropriate request format and send it to the pick_place_routine.
 
-
-//add 3 images here
 
 [image4]: ./screenshots/labels1.PNG
 [image5]: ./screenshots/labels2.PNG
