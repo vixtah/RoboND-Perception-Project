@@ -216,10 +216,10 @@ def pr2_mover(object_list):
 
             yaml_dict = make_yaml_dict(test_scene_number, object_name, which_arm, pick_pose, place_pose)
             dict_list.append(yaml_dict)
+            
+            #resp = pick_place_routine(test_scene_number, object_name, which_arm, pick_pose, place_pose)
 
-            resp = pick_place_routine(test_scene_number, object_name, which_arm, pick_pose, place_pose)
-
-            print ("Response: ",resp.success)
+            #print ("Response: ",resp.success)
 
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
